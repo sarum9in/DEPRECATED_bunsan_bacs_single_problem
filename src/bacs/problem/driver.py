@@ -1,4 +1,13 @@
+from bacs.xsd.problem import ProblemType
+
+
 class Tests(object):
+
+	def to_xsd(self):
+		"""
+			Returns bacs.xsd.problem.TestsType instance.
+		"""
+		raise NotImplementedError()
 
 	def test_set(self):
 		"""
@@ -21,10 +30,21 @@ class Tests(object):
 
 
 class Statements(object):
-	pass
+
+	def to_xsd(self):
+		"""
+			Returns bacs.xsd.problem.StatementsType instance.
+		"""
+		raise NotImplementedError()
 
 
 class Utilities(object):
+
+	def to_xsd(self):
+		"""
+			Returns bacs.xsd.problem.UtilitiesType instance.
+		"""
+		raise NotImplementedError()
 
 	def checker(self):
 		"""
@@ -57,7 +77,13 @@ class Driver(object):
 		"""
 			Returns bacs.xsd.problem.ProblemType instance.
 		"""
-		raise NotImplementedError()
+		problem = dict()
+		problem['info'] = self.info()
+		problem['tests'] = self.tests().to_xsd()
+		problem['statements'] = self.statements().to_xsd()
+		problem['profiles'] = self.profiles()
+		problem['utilities'] = self.utilities().to_xsd()
+		return ProblemType(**problem)
 
 	def info(self):
 		"""
@@ -87,3 +113,5 @@ class Driver(object):
 			Returns Utilities instance.
 		"""
 		raise NotImplementedError()
+
+__all__ = ['Tests', 'Statements', 'Utilities', 'Driver']

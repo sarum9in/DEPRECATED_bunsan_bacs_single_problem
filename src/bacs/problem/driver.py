@@ -3,7 +3,8 @@ from pyxb import BIND
 from bacs.xsd.problem import (
 	ProblemType,
 	TestsInfoType,
-	StatementsType)
+	StatementsType,
+	UtilitiesType)
 
 
 class Tests(object):
@@ -59,7 +60,10 @@ class Utilities(object):
 		"""
 			Returns bacs.xsd.problem.UtilitiesType instance.
 		"""
-		raise NotImplementedError()
+		# TODO
+		utilities = dict()
+		utilities['checker'] = ''
+		return UtilitiesType(**utilities)
 
 	def checker(self):
 		"""

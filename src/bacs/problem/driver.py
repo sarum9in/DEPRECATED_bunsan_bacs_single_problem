@@ -1,6 +1,9 @@
 from pyxb import BIND
 
-from bacs.xsd.problem import ProblemType, TestsInfoType
+from bacs.xsd.problem import (
+	ProblemType,
+	TestsInfoType,
+	StatementsType)
 
 
 class Tests(object):
@@ -46,7 +49,8 @@ class Statements(object):
 		"""
 			Returns bacs.xsd.problem.StatementsType instance.
 		"""
-		raise NotImplementedError()
+		# TODO
+		return StatementsType()
 
 
 class Utilities(object):

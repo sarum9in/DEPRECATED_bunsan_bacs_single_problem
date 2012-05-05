@@ -1,13 +1,24 @@
-from bacs.xsd.problem import ProblemType
+from pyxb import BIND
+
+from bacs.xsd.problem import ProblemType, TestsInfoType
 
 
 class Tests(object):
 
 	def to_xsd(self):
 		"""
-			Returns bacs.xsd.problem.TestsType instance.
+			Returns bacs.xsd.problem.TestsInfoType instance.
 		"""
-		raise NotImplementedError()
+		tests = dict()
+		# test set
+		test_mapper = lambda id: BIND(id=id)
+		test_set = map(test_mapper, self.test_set())
+		tests['test_set'] = BIND(*test_set)
+		# data set
+		data_mapper = lambda id, format: BIND(id=id, format=format)
+		data_set = map(data_mapper, self.data_set().items())
+		tests['data_set'] = BIND(*data_set)
+		return TestsInfoType(**tests)
 
 	def test_set(self):
 		"""

@@ -17,7 +17,7 @@ def load(path):
 		implementing problem format.
 	"""
 	format = get_format(path)
-	module_name = "bacs.proble.drivers.{}".format(format)
+	module_name = "bacs.problem.drivers.{}".format(format)
 	find_ = imp.find_module(module_name)
 	driver_module = imp.load_module(module_name, *find_)
 	return driver_module.Driver(path)

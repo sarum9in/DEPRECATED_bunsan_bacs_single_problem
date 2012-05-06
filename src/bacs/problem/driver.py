@@ -19,7 +19,7 @@ class Tests(object):
 		test_set = map(test_mapper, self.test_set())
 		tests['test_set'] = BIND(*test_set)
 		# data set
-		data_mapper = lambda id, format: BIND(id=id, format=format)
+		data_mapper = lambda t: BIND(id=t[0], format=t[1])
 		data_set = map(data_mapper, self.data_set().items())
 		tests['data_set'] = BIND(*data_set)
 		return TestsInfoType(**tests)

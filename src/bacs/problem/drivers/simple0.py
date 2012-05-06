@@ -48,16 +48,17 @@ class Driver(driver.Driver):
 	
 	@staticmethod
 	def _compress(dictionary):
-		return dict(filter(lambda i, j: j is not None, dictionary.items()))
+		return dict(filter(lambda t: t[1] is not None, dictionary.items()))
 
 	def __init__(self, path):
 		self._path = path
 		self._config = SafeConfigParser()
-		self._config.read(join(self._path, 'config.ini'), ENCODING)
+		#self._config.read(join(self._path, 'config.ini'), ENCODING)
+		self._config.read(join(self._path, 'config.ini'))
 		self._find_tests()
 
 	def _find_tests(self):
-		path = (self._path, 'tests')
+		path = join(self._path, 'tests')
 		files = os.listdir(path)
 		self._data_set = dict()
 		self._test_set = set()
@@ -68,39 +69,41 @@ class Driver(driver.Driver):
 			data = ext[1:]
 			self._test_set.add(name)
 			if data not in self._data_set:
-				if 'tests' in self._config and data in self._config['tests']:
+				if self._config.has_option('tests', data):
 					format = self._config.get('tests', data).upper()
 				else:
 					format = 'TEXT'
 				self._data_set[data] = format
 			if name not in tests:
-				tests[name] = set()
-			tests[name].add(data)
+				tests[name] = dict()
+			tests[name][data] = self._data_set[data]
 		for name, datas in tests.items():
 			assert datas==self._data_set
 
 	def info(self):
-		info_ = self._config['info']
+		info_ = SafeConfigSectionProxy(self._config, 'info')
 		info = dict()
 		info['names'] = BIND(ProblemNameType(info_['name'], lang='C'))
 		authors = Driver._get_list(info_, 'authors')
 		info['authors'] = BIND(*map(BIND, authors))
 		maintainers = Driver._get_list(info, 'maintainers')
 		info['maintainers'] = BIND(*map(BIND, maintainers))
-		info['source'] = info_.get('source')
+		info['source'] = info_['source']
 		info = InfoType(**Driver._compress(info))
 		return info
 
-	def tests(self, test_id, data_id):
+	def tests(self):
 		path = join(self._path, 'tests')
+		test_set = self._test_set
+		data_set = self._data_set
 
 		class Tests(driver.Tests):
 
 			def test_set(self):
-				pass
+				return test_set
 
 			def data_set(self):
-				pass
+				return data_set
 
 			def test(self, test_id, data_id):
 				return join(path, test_id+'.'+data_id)
@@ -112,15 +115,15 @@ class Driver(driver.Driver):
 
 	def profiles(self):
 		settings = dict()
-		if 'rlimits' in self._config:
+		if self._config.has_section('rlimits'):
 			rlimits = [RlimitType(int(value), id=resource.toupper())
-					for resource, value in self._config['rlimits']]
+					for resource, value in SafeConfigSectionProxy(self._config, 'rlimits')]
 			settings['rlimits'] = BIND(*rlimits)
-		if 'files' in self._config:
+		if self._config.has_section('files'):
 			pass
 			#settings['files'] = None
 		settings = TestGroupSettingsType(**settings)
-		full_test_set = WildcardQueryType('*')
+		full_test_set = BIND(WildcardQueryType('*'))
 		test_group = TestGroupType(id='', settings=settings, test_set=BIND(full_test_set))
 		profile = SolutionTestingProfileType(test_groups=BIND(test_group))
 		return ProfilesType(testing_profiles=BIND(profile))
@@ -141,3 +144,19 @@ class Driver(driver.Driver):
 					return None
 
 		return Utilities()
+
+
+class SafeConfigSectionProxy(object):
+
+	def __init__(self, config, section):
+		self._config = config
+		self._section = section
+
+	def __iter__(self):
+		return self._config.items(self._section)
+
+	def __contains__(self, option):
+		return self._config.has_option(self._section, option)
+
+	def __getitem__(self, option):
+		return self._config.get(self._section, option).decode(ENCODING)

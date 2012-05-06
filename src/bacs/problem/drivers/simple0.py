@@ -1,5 +1,5 @@
 import os
-from os.path import join, exists, splitext, basename
+from os.path import join, exists, abspath, splitext, basename
 from ConfigParser import SafeConfigParser
 
 from pyxb import BIND
@@ -51,7 +51,7 @@ class Driver(driver.Driver):
 		return dict(filter(lambda t: t[1] is not None, dictionary.items()))
 
 	def __init__(self, path):
-		self._path = path
+		self._path = abspath(path)
 		self._config = SafeConfigParser()
 		#self._config.read(join(self._path, 'config.ini'), ENCODING)
 		self._config.read(join(self._path, 'config.ini'))

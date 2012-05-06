@@ -1,5 +1,4 @@
 from os.path import join
-import imp
 
 
 def get_format(path):
@@ -7,7 +6,7 @@ def get_format(path):
 		Retrieves format name.
 	"""
 	with open(join(path, "format")) as fmt:
-		return fmt.read()
+		return fmt.read().strip()
 
 
 def load(path):
@@ -17,9 +16,8 @@ def load(path):
 		implementing problem format.
 	"""
 	format = get_format(path)
-	module_name = "bacs.problem.drivers.{}".format(format)
-	find_ = imp.find_module(module_name)
-	driver_module = imp.load_module(module_name, *find_)
+	bacs = __import__('bacs.problem.drivers.{}'.format(format))
+	driver_module = getattr(bacs.problem.drivers, format)
 	return driver_module.Driver(path)
 
 

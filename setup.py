@@ -10,7 +10,7 @@ setup(
 	author_email = 'sarum9in@gmail.com',
 	license = "GPL",
 	url = 'http://bacs.cs.istu.ru',
-	packages = ['bacs.problem'],
+	packages = ['bacs.problem', 'bacs.problem.drivers'],
 	package_dir = {'': 'src'}
 )
 

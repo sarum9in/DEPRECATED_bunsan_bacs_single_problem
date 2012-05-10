@@ -7,19 +7,17 @@ Introduction
 "simple0" format is the similar to bacs legacy problem format.
 It uses ini files to configure problem.
 
+
 Directory tree
-**************
+^^^^^^^^^^^^^^
 
 Problem in "simple0" is a folder with the following entries:
 
-1. *config.ini* -- :ref:`config-file`
+1. *config.ini* -- `Configuration file`_
 
-#. *checker/* -- directory with checker, see :doc:`buildable`
-#. *validator/* -- directory with validator, see :doc:`buildable`
-#. *statements/* -- directory with statements, see :doc:`buildable`
-
-   a. **TODO**
-
+#. *checker/* -- directory with checker, see :doc:`checker`
+#. *validator/* -- directory with validator, see :doc:`validator`
+#. *statements/* -- directory with statements, see :doc:`statements`
 #. *tests/* -- directory with tests
 
    a. Each test is set of files which names has "test_id.data_id" format
@@ -31,10 +29,22 @@ Problem in "simple0" is a folder with the following entries:
       #. File is considered to be *text* if it is specified in section "[tests]" from config.ini
       #. File is considered to be *text* if it is not specified
 
-.. _config-file:
+
+Testing specifications
+^^^^^^^^^^^^^^^^^^^^^^
+
+1. Solution testing is performed on all.
+#. Test order is numeric if all test_ids match pattern ``'\d+'`` otherwise order is lexicographical.
+#. Solution can use up to 3 files corresponding to *stdin*, *stdout* and *stderr* data streams.
+
+   a. If file name is not specified for data stream solution has no access to file (only through preopened descriptors).
+   #. *stdin* is filled from test file with ``data_id=in``
+   #. *stdout* and *stderr* may be filled by solution.
+
+#. After execution on specified test checker will be executed..........................
 
 Configuration file
-******************
+^^^^^^^^^^^^^^^^^^
 
 Specifications
 ~~~~~~~~~~~~~~
@@ -45,29 +55,32 @@ Specifications
 
    a. **info** section has the following options
 
-	  i. name -- the name of the problem
-	  #. authors -- the list of authors separated by ";", author name is trimmed
-	  #. maintainers -- the list of maintainers separated by ";", maintainer name is trimmed
-	  #. source -- the source of the problem (contest name, championship...)
+      i. name -- the name of the problem
+      #. authors -- the list of authors separated by ";", author name is trimmed
+      #. maintainers -- the list of maintainers separated by ";", maintainer name is trimmed
+      #. source -- the source of the problem (contest name, championship...)
 
    #. **rlimits** section has the following options **TODO scale, suffixes**
 
-	  i. memory -- *uint64*, bytes
-	  #. time --  *uint64*, microseconds
-	  #. cpu --  *uint64*, microseconds
-	  #. output -- *uint64*, bytes
+      i. *memory* -- *uint64*, bytes
+      #. *time* --  *uint64*, microseconds
+      #. *cpu* --  *uint64*, microseconds
+      #. *output* -- *uint64*, bytes
 
-   #. **files** section has the following options
+   #. **files** section specifies file redirections.
 
-	  i. stdin
-	  #. stdout
-	  #. stderr
+      For each of standard data streams file name can be specified.
+
+      If no option is present data stream will be redirected
+      to file with unspecified name.
+
+      The following options are available: *stdin*, *stdout*, *stderr*.
 
    #. **tests** section describes data set of the tests.
       You can specify file format of the data_id.
 
-      i. data_id = "text" -- for text files
-      #. data_id = "binary" -- for binary files
+      i. ``data_id = "text"`` -- for text files
+      #. ``data_id = "binary"`` -- for binary files
 
 Examples
 ~~~~~~~~
@@ -111,8 +124,11 @@ Complicated sample
    ; This line describes files such as "1.in", "2.in", "3.in" and so on
    in=text
 
-   ; This line describes files "1.hint", "2.hint" ...
-   hint=text
+   ; This line describes files "1.out", "2.out" ...
+   out=text
+
+   ; This line describes files "1.err", "2.err" ...
+   err=text
 
 
 Short sample

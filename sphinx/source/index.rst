@@ -15,6 +15,9 @@ Contents:
    problem_formats
 
    buildable
+   checker
+   validator
+   statements
 
 
 Indices and tables

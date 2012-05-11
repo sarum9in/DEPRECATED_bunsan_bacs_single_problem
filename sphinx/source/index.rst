@@ -12,7 +12,7 @@ Contents:
    :maxdepth: 2
 
    intro
-   problem_formats
+   problem_formats/index
 
    buildable
    checker

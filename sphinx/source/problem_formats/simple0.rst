@@ -15,9 +15,9 @@ Problem in "simple0" is a folder with the following entries:
 
 1. *config.ini* -- `Configuration file`_
 
-#. *checker/* -- directory with checker, see :doc:`checker`
-#. *validator/* -- directory with validator, see :doc:`validator`
-#. *statements/* -- directory with statements, see :doc:`statements`
+#. *checker/* -- directory with checker, see :doc:`../checker`
+#. *validator/* -- directory with validator, see :doc:`../validator`
+#. *statements/* -- directory with statements, see :doc:`../statements`
 #. *tests/* -- directory with tests
 
    a. Each test is set of files which names has "test_id.data_id" format

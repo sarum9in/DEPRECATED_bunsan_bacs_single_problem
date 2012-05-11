@@ -35,13 +35,9 @@ Testing specifications
 
 1. Solution testing is performed on all.
 #. Test order is numeric if all test_ids match pattern ``'\d+'`` otherwise order is lexicographical.
-#. Solution can use up to 3 files corresponding to *stdin*, *stdout* and *stderr* data streams.
-
-   a. If file name is not specified for data stream solution has no access to file (only through preopened descriptors).
-   #. *stdin* is filled from test file with ``data_id=in``
-   #. *stdout* and *stderr* may be filled by solution.
-
-#. After execution on specified test checker will be executed..........................
+#. Testing algorithm is *BREAK_ON_FAIL*.
+#. Solution is executed on specified test.
+#. After solution execution checker is executed.
 
 Configuration file
 ^^^^^^^^^^^^^^^^^^
@@ -60,21 +56,22 @@ Specifications
       #. maintainers -- the list of maintainers separated by ";", maintainer name is trimmed
       #. source -- the source of the problem (contest name, championship...)
 
-   #. **rlimits** section has the following options **TODO scale, suffixes**
+   #. **rlimits** section has the following options
 
-      i. *memory* -- *uint64*, bytes
+      i. *memory* -- *uint64*, bytes **TODO units**
       #. *time* --  *uint64*, microseconds
       #. *cpu* --  *uint64*, microseconds
       #. *output* -- *uint64*, bytes
 
-   #. **files** section specifies file redirections.
+   #. **files** section has following options: *stdin*, *stdout*, *stderr*.
 
-      For each of standard data streams file name can be specified.
-
-      If no option is present data stream will be redirected
-      to file with unspecified name.
-
-      The following options are available: *stdin*, *stdout*, *stderr*.
+      i. Solution can use up to 3 files corresponding to *stdin*, *stdout* and *stderr* data streams.
+      #. File ids are *stdin*, *stdout*, *stderr*.
+      #. File with *stdin* id is filled from test file with ``data_id=in``.
+      #. *stdout* and *stderr* may be filled by solution.
+      #. If option is present no redirections are introduced for file id.
+      #. If option is not present file redirection is introduced
+         and file name is unspecified.
 
    #. **tests** section describes data set of the tests.
       You can specify file format of the data_id.

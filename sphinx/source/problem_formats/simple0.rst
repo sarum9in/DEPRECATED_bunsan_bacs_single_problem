@@ -7,6 +7,8 @@ Introduction
 "simple0" format is the similar to bacs legacy problem format.
 It uses ini files to configure problem.
 
+Specifications
+--------------
 
 Directory tree
 ^^^^^^^^^^^^^^
@@ -30,8 +32,8 @@ Problem in "simple0" is a folder with the following entries:
       #. File is considered to be *text* if it is not specified
 
 
-Testing specifications
-^^^^^^^^^^^^^^^^^^^^^^
+Testing algorithm
+^^^^^^^^^^^^^^^^^
 
 1. Solution testing is performed on all.
 #. Test order is numeric if all test_ids match pattern ``'\d+'`` otherwise order is lexicographical.

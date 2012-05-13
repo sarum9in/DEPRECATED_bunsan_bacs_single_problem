@@ -16,7 +16,7 @@ Contents:
 
    buildable
    utilities/index
-   statements
+   statement
 
 
 Indices and tables

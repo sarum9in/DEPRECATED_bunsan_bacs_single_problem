@@ -19,7 +19,7 @@ Problem in "simple0" is a folder with the following entries:
 
 #. *checker/* -- directory with checker, see :doc:`../utilities/checker`
 #. *validator/* -- directory with validator, see :doc:`../utilities/validator`
-#. *statements/* -- directory with statements, see :doc:`../statements`
+#. *statement/* -- directory with statement, see :doc:`../statement`
 #. *tests/* -- directory with tests
 
    a. Each test is set of files which names has "test_id.data_id" format

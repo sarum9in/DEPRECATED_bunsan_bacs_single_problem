@@ -27,8 +27,8 @@ Configuration file has *ini* format.
 User may introduce arbitrary sections except **[build]** for additional
 configuration (not used by `Buildable`_).
 
-**[build]** section contains *use* option that specifies build type.
-If implementation provides default *use* value user may omit it.
+**[build]** section contains *builder* option that specifies one of supported implementation supported builders.
+Implementation may provide default *builder* value.
 
 Examples
 ````````
@@ -38,18 +38,18 @@ Examples
 Specifies cmake builder::
 
    [build]
-   use = cmake
+   builder = cmake
 
 
 Specifies single-source builder::
 
    [build]
-   use = single
+   builder = single
    source = main.cpp
 
 Specifies cmake builder with non-standard config location::
 
    [build]
-   use = cmake
+   builder = cmake
    source = src/CMakeLists.txt
 

@@ -14,6 +14,7 @@ Each utility is :doc:`../buildable`.
 If utility does not need to be build (for example it is a script)
 we can treat copy operation as build.
 
+Configuration file is named *config.ini*.
 
 Builders list
 -------------

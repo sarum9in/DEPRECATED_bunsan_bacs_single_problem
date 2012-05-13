@@ -54,8 +54,8 @@ Specifications
    a. **info** section has the following options
 
       i. name -- the name of the problem
-      #. authors -- the list of authors separated by ";", author name is trimmed
-      #. maintainers -- the list of maintainers separated by ";", maintainer name is trimmed
+      #. authors -- the list of authors separated by "\n", author name is trimmed
+      #. maintainers -- the list of maintainers separated by "\n", maintainer name is trimmed
       #. source -- the source of the problem (contest name, championship...)
 
    #. **rlimits** section has the following options
@@ -78,8 +78,8 @@ Specifications
    #. **tests** section describes data set of the tests.
       You can specify file format of the data_id.
 
-      i. ``data_id = "text"`` -- for text files
-      #. ``data_id = "binary"`` -- for binary files
+      i. ``data_id = text`` -- for text files
+      #. ``data_id = binary`` -- for binary files
 
 Examples
 ~~~~~~~~
@@ -92,42 +92,44 @@ Complicated sample
 
    [info]
    ; It is comment
-   name="Problem name"
+   name = Problem name
 
    ; Problem is created by "author1 <author1@example.com>" and "author2 <author2@example.com>"
-   authors="author1 <author1@example.com>; author2 <author2@example.com>"
+   authors = author1 <author1@example.com>
+      author2 <author2@example.com>
 
    ; Here you can specify user names/ids (related to BACS.WEB)
    ;
    ; Note that names will be trimmed, so here the following string list is specified:
    ; ["admin", "contest_admin"]
-   maintainers="admin; contest_admin"
+   maintainers = admin
+      contest_admin
 
-   source="PTZ summer 2011"
+   source = PTZ summer 2011
 
    [rlimits]
    ; 256MiB
-   memory=268435456
+   memory = 268435456
    ; 1 secons
-   cpu=1000000000
+   cpu = 1000000000
 
    [files]
    ; Note that stdin is not specified, so it is redirected from "in" file from test
    ; stdout will not be redirected
    ; stderr is redirected to file
-   stdout="output.txt"
+   stdout = output.txt
 
    [tests]
    ; Note that we can omit definitions of text files
 
    ; This line describes files such as "1.in", "2.in", "3.in" and so on
-   in=text
+   in = text
 
    ; This line describes files "1.out", "2.out" ...
-   out=text
+   out = text
 
    ; This line describes files "1.err", "2.err" ...
-   err=text
+   err = text
 
 
 Short sample
@@ -135,14 +137,14 @@ Short sample
 ::
 
    [info]
-   name="Problem name"
-   maintainer="admin"
+   name = Problem name
+   maintainer = admin
 
    [rlimits]
-   memory=268435456
-   cpu=1000000000
+   memory = 268435456
+   cpu = 1000000000
 
    [files]
-   stdin="input.txt"
-   stdout="output.txt"
+   stdin = input.txt
+   stdout = output.txt
 

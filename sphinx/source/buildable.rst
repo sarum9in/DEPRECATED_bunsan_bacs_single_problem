@@ -23,11 +23,12 @@ Configuration file
 ^^^^^^^^^^^^^^^^^^
 
 Configuration file has *ini* format.
-**[build]** section is reserved for internal usage.
-User may introduce arbitrary sections except **[build]**.
+**[build]** section is used for `Buildable`_ options specifications.
+User may introduce arbitrary sections except **[build]** for additional
+configuration (not used by `Buildable`_).
 
-Build section contains *use* option that specifies build type.
-If implementation provides default use value user may omit it.
+**[build]** section contains *use* option that specifies build type.
+If implementation provides default *use* value user may omit it.
 
 Examples
 ````````

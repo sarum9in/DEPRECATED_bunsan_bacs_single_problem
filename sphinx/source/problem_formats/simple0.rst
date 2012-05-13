@@ -54,8 +54,8 @@ Specifications
    a. **info** section has the following options
 
       i. name -- the name of the problem
-      #. authors -- the list of authors separated by "\n", author name is trimmed
-      #. maintainers -- the list of maintainers separated by "\n", maintainer name is trimmed
+      #. authors -- the list of authors separated by "\\n", author name is trimmed
+      #. maintainers -- the list of maintainers separated by "\\n", maintainer name is trimmed
       #. source -- the source of the problem (contest name, championship...)
 
    #. **rlimits** section has the following options

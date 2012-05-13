@@ -17,8 +17,8 @@ Problem in "simple0" is a folder with the following entries:
 
 1. *config.ini* -- `Configuration file`_
 
-#. *checker/* -- directory with checker, see :doc:`../checker`
-#. *validator/* -- directory with validator, see :doc:`../validator`
+#. *checker/* -- directory with checker, see :doc:`../utilities/checker`
+#. *validator/* -- directory with validator, see :doc:`../utilities/validator`
 #. *statements/* -- directory with statements, see :doc:`../statements`
 #. *tests/* -- directory with tests
 

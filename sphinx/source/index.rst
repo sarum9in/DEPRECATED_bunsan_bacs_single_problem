@@ -15,8 +15,7 @@ Contents:
    problem_formats/index
 
    buildable
-   checker
-   validator
+   utilities/index
    statements
 
 

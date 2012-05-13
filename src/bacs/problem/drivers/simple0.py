@@ -110,8 +110,8 @@ class Driver(driver.Driver):
 
         return Tests()
 
-    def statements(self):
-        return driver.Statements()
+    def statement(self):
+        return driver.Statement()
 
     def profiles(self):
         settings = dict()

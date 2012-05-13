@@ -3,7 +3,7 @@ from pyxb import BIND
 from bacs.xsd.problem import (
     ProblemType,
     TestsInfoType,
-    StatementsType,
+    StatementType,
     UtilitiesType)
 
 
@@ -44,14 +44,14 @@ class Tests(object):
         raise NotImplementedError()
 
 
-class Statements(object):
+class Statement(object):
 
     def to_xsd(self):
         """
-            Returns bacs.xsd.problem.StatementsType instance.
+            Returns bacs.xsd.problem.StatementType instance.
         """
         # TODO
-        return StatementsType()
+        return StatementType()
 
 
 class Utilities(object):
@@ -99,7 +99,7 @@ class Driver(object):
         problem = dict()
         problem['info'] = self.info()
         problem['tests'] = self.tests().to_xsd()
-        problem['statements'] = self.statements().to_xsd()
+        problem['statement'] = self.statement().to_xsd()
         problem['profiles'] = self.profiles()
         problem['utilities'] = self.utilities().to_xsd()
         return ProblemType(**problem)
@@ -116,9 +116,9 @@ class Driver(object):
         """
         raise NotImplementedError()
 
-    def statements(self):
+    def statement(self):
         """
-            Returns Statements instance.
+            Returns Statement instance.
         """
 
     def profiles(self):
@@ -133,4 +133,4 @@ class Driver(object):
         """
         raise NotImplementedError()
 
-__all__ = ['Tests', 'Statements', 'Utilities', 'Driver']
+__all__ = ['Tests', 'Statement', 'Utilities', 'Driver']

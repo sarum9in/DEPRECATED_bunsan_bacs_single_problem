@@ -106,8 +106,8 @@ Binary multiples give :math:`2^{10k}` multiplier.
    digit = "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" ;
 
    no multiple = "" ;
-   si multiple = "k" | "M" | "G" | "T" | "P" | "E" | "Z" | "Y" ;
-   si submultiple = "m" | "µ" | "mu" | "n" | "p" | "f" | "a" | "z" | "y" ;
+   si multiple = "da" | "h" | "k" | "M" | "G" | "T" | "P" | "E" | "Z" | "Y" ;
+   si submultiple = "d" | "c"| "m" | "µ" | "mu" | "n" | "p" | "f" | "a" | "z" | "y" ;
    binary multiple = "Ki" | "Mi" | "Gi" | "Ti" | "Pi" | "Ei" | "Zi" | "Yi" ;
 
 Memory value

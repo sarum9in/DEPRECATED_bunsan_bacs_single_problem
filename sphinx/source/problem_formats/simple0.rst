@@ -60,10 +60,10 @@ Specifications
 
    #. **rlimits** section has the following options
 
-      i. *memory* -- *uint64*, bytes **TODO units**
-      #. *time* --  *uint64*, microseconds
-      #. *cpu* --  *uint64*, microseconds
-      #. *output* -- *uint64*, bytes
+      i. *memory* -- `Fixed point decimal`_, see `Memory value`_
+      #. *time* --  `Fixed point decimal`_, see `Time value`_
+      #. *cpu* --  `Fixed point decimal`_, see `Time value`_
+      #. *output* -- `Fixed point decimal`_, see `Memory value`_
 
    #. **files** section has following options: *stdin*, *stdout*, *stderr*.
 
@@ -80,6 +80,57 @@ Specifications
 
       i. ``data_id = text`` -- for text files
       #. ``data_id = binary`` -- for binary files
+
+
+Fixed point decimal
+~~~~~~~~~~~~~~~~~~~
+
+Values in configuration files are fixed point decimals
+with optional multiple suffix.
+
+Values is defined corresponding to EBNF below.
+"multiple unit" non-terminal is defined for specified value types.
+
+Si multiples give :math:`10^k` multiplier.
+Si submultiples give :math:`10^{-k}` multiplier.
+Binary multiples give :math:`2^{10k}` multiplier.
+
+.. highlight:: none
+
+::
+
+   value = decimal, multiple unit ;
+   decimal = unsigned [dot, unsigned] ;
+   dot = "." ;
+   unsigned = digit, {digit} ;
+   digit = "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" ;
+
+   no multiple = "" ;
+   si multiple = "k" | "M" | "G" | "T" | "P" | "E" | "Z" | "Y" ;
+   si submultiple = "m" | "µ" | "mu" | "n" | "p" | "f" | "a" | "z" | "y" ;
+   binary multiple = "Ki" | "Mi" | "Gi" | "Ti" | "Pi" | "Ei" | "Zi" | "Yi" ;
+
+Memory value
+````````````
+
+.. highlight:: none
+
+Definition::
+
+   multiple unit = "" | (multiple, unit) ;
+   multiple = si multiple | binary multiple | no multiple ;
+   unit = "B" ;
+
+Time value
+``````````
+
+.. highlight:: none
+
+Definition::
+
+   multiple unit = "" | (multiple, unit) ;
+   multiple = si multiple | no multiple ;
+   unit = "s" ;
 
 Examples
 ~~~~~~~~
@@ -108,10 +159,9 @@ Complicated sample
    source = PTZ summer 2011
 
    [rlimits]
-   ; 256MiB
-   memory = 268435456
-   ; 1 secons
-   cpu = 1000000000
+   memory = 256MiB
+   ; 1 second
+   cpu = 1
 
    [files]
    ; Note that stdin is not specified, so it is redirected from "in" file from test
@@ -141,8 +191,8 @@ Short sample
    maintainer = admin
 
    [rlimits]
-   memory = 268435456
-   cpu = 1000000000
+   memory = 256MiB
+   cpu = 1
 
    [files]
    stdin = input.txt

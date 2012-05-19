@@ -4,6 +4,7 @@ from bacs.xsd.problem import (
     ProblemType,
     TestsInfoType,
     StatementType,
+    StatementVersionType,
     UtilitiesType)
 
 
@@ -44,14 +45,45 @@ class Tests(object):
         raise NotImplementedError()
 
 
+class StatementVersion(object):
+
+    def lang(self):
+        """
+            Returns statement version language
+        """
+        raise NotImplementedError()
+
+    def format(self):
+        """
+            Returns statement version format
+        """
+        raise NotImplementedError()
+
+    def package(self):
+        """
+            Returns statement version package
+        """
+        raise NotImplementedError()
+
+    def to_xsd(self):
+        return StatementVersionType(lang=self.lang(),
+                                    format=self.format(),
+                                    package=self.package())
+
+
 class Statement(object):
+
+    def versions(self):
+        """
+            Returns all statement versions available
+        """
 
     def to_xsd(self):
         """
             Returns bacs.xsd.problem.StatementType instance.
         """
-        # TODO
-        return StatementType()
+        versions = map(StatementVersion.to_xsd, self.versions())
+        return StatementType(*versions)
 
 
 class Utilities(object):
@@ -120,6 +152,7 @@ class Driver(object):
         """
             Returns Statement instance.
         """
+        raise NotImplementedError()
 
     def profiles(self):
         """

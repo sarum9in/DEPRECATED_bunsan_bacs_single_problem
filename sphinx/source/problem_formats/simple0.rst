@@ -100,7 +100,7 @@ Binary multiples give :math:`2^{10k}` multiplier.
 ::
 
    value = decimal, multiple unit ;
-   decimal = unsigned [dot, unsigned] ;
+   decimal = unsigned, [dot, unsigned] ;
    dot = "." ;
    unsigned = digit, {digit} ;
    digit = "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" ;
@@ -129,7 +129,7 @@ Time value
 Definition::
 
    multiple unit = "" | (multiple, unit) ;
-   multiple = si multiple | no multiple ;
+   multiple = si multiple | si submultiple | no multiple ;
    unit = "s" ;
 
 Examples
@@ -161,7 +161,7 @@ Complicated sample
    [rlimits]
    memory = 256MiB
    ; 1 second
-   cpu = 1
+   cpu = 1s
 
    [files]
    ; Note that stdin is not specified, so it is redirected from "in" file from test

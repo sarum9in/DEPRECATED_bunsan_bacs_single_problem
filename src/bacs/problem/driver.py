@@ -1,3 +1,5 @@
+from ConfigParser import SafeConfigParser
+
 from pyxb import BIND
 
 from bacs.xsd.problem import (
@@ -5,7 +7,8 @@ from bacs.xsd.problem import (
     TestsInfoType,
     StatementType,
     StatementVersionType,
-    UtilitiesType)
+    UtilitiesType,
+    UtilityType)
 
 
 class Tests(object):
@@ -66,6 +69,9 @@ class StatementVersion(object):
         raise NotImplementedError()
 
     def to_xsd(self):
+        """
+            Return bacs.xsd.problem.StatementVersionType instance.
+        """
         return StatementVersionType(lang=self.lang(),
                                     format=self.format(),
                                     package=self.package())
@@ -87,15 +93,41 @@ class Statement(object):
         return StatementType(*versions)
 
 
+class Utility(object):
+
+    def __init__(self, config):
+        self._config = SafeConfigParser()
+        self._config.read(config) # TODO ENCODING
+
+    def builder(self):
+        """
+            Returns builder name.
+        """
+        if self._config.has_option('build', 'builder'):
+            return self._config.get('build', 'builder')
+        else:
+            return 'single'
+
+    def to_xsd(self):
+        """
+            Returns bacs.xsd.problem.UtilityType instance.
+        """
+        return UtilityType(builder=self.builder())
+
+
 class Utilities(object):
 
     def to_xsd(self):
         """
             Returns bacs.xsd.problem.UtilitiesType instance.
         """
-        # TODO
+        checker = self.checker()
+        assert checker is not None
+        validator = self.validator()
         utilities = dict()
-        utilities['checker'] = ''
+        utilities['checker'] = checker.to_xsd()
+        if validator is not None:
+            utilities['validator'] = validator.to_xsd()
         return UtilitiesType(**utilities)
 
     def checker(self):

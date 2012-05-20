@@ -58,5 +58,5 @@ _binary_muliple = \
 }
 
 
-si_multiple = power_multiplificator(10, _si_multiple, _si_submultiple)
-binary_multiple = power_multiplificator(2, _binary_muliple)
+si_multiple = multiple(power_multiplificator(10), _si_multiple, _si_submultiple)
+binary_multiple = multiple(power_multiplificator(2), _binary_muliple)

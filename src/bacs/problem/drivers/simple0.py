@@ -89,6 +89,8 @@ class Driver(driver.Driver):
         maintainers = Driver._get_list(info, 'maintainers')
         info['maintainers'] = BIND(*map(BIND, maintainers))
         info['source'] = info_['source']
+        # TODO hash, package
+        info['system'] = BIND(hash='', package='')
         info = InfoType(**Driver._compress(info))
         return info
 

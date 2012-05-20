@@ -77,6 +77,7 @@ class Statement(object):
         """
             Returns all statement versions available
         """
+        raise NotImplementedError()
 
     def to_xsd(self):
         """

@@ -1,11 +1,13 @@
 import os
+from glob import glob
 from os.path import join, exists, abspath, splitext, basename
 from ConfigParser import SafeConfigParser
 
 from pyxb import BIND
 
 from bacs.xsd.problem import (InfoType, ProblemNameType,
-    SolutionTestingProfileType, ProfilesType)
+    SolutionTestingProfileType, ProfilesType,
+    StatementVersionType)
 from bacs.xsd.settings import TestGroupSettingsType, RlimitType
 from bacs.xsd.testing import TestGroupType, WildcardQueryType
 
@@ -18,31 +20,33 @@ class Driver(driver.Driver):
         config.ini sections:
 
         [info]
-        name="Problem name"
-        authors="author1; author2"
-        maintainers="maintainer1; maintainer2"
-        source=Problem source
+        name = Problem name
+        authors = author1
+            author2
+        maintainers = maintainer1
+            maintainer2
+        source = Problem source
 
         [rlimits]
-        time=0
-        memory=0
-        cpu=0
-        output=0
+        time = 0
+        memory = 0
+        cpu = 0
+        output = 0
 
         [files]
-        stdin="input.txt"
-        stdout="output.txt"
-        stderr="log.txt"
+        stdin = input.txt
+        stdout = output.txt
+        stderr = log.txt
 
         [tests]
-        in = "text"
-        hint = "text"
+        in = text
+        out = text
     """
 
     @staticmethod
     def _get_list(section, key):
         if key in section:
-            return map(lambda s: s.strip(), section[key].split(';'))
+            return map(lambda s: s.strip(), section[key].split('\n'))
         else:
             return []
 
@@ -83,12 +87,12 @@ class Driver(driver.Driver):
     def info(self):
         info_ = SafeConfigSectionProxy(self._config, 'info')
         info = dict()
-        info['names'] = BIND(ProblemNameType(info_['name'], lang='C'))
+        info['names'] = BIND(ProblemNameType(info_['name'], lang=''))
         authors = Driver._get_list(info_, 'authors')
         info['authors'] = BIND(*map(BIND, authors))
         maintainers = Driver._get_list(info, 'maintainers')
         info['maintainers'] = BIND(*map(BIND, maintainers))
-        info['source'] = info_['source']
+        info['source'] = info_['source'] if 'source' in info_ else None
         # TODO hash, package
         info['system'] = BIND(hash='', package='')
         info = InfoType(**Driver._compress(info))
@@ -113,7 +117,38 @@ class Driver(driver.Driver):
         return Tests()
 
     def statement(self):
-        return driver.Statement()
+
+        class StatementVersion(driver.StatementVersion):
+
+            def __init__(self, format, lang, package):
+                self._format = format
+                self._lang = lang
+                self._package = package
+
+            def format(self):
+                return self._format
+
+            def lang(self):
+                return self._lang
+
+            def package(self):
+                return self._package
+
+        versions = []
+        for config in glob(join(self._path, 'statement', '*.ini')):
+            cfg = SafeConfigParser()
+            #cfg.read(config, ENCODING)
+            cfg.read(config)
+            lang = cfg.get('info', 'lang')
+            # TODO format, package
+            versions.append(StatementVersion(lang=lang, format='', package=''))
+
+        class Statement(driver.Statement):
+
+            def versions(self):
+                return versions
+
+        return Statement()
 
     def profiles(self):
         settings = dict()
@@ -136,12 +171,12 @@ class Driver(driver.Driver):
         class Utilities(driver.Utilities):
 
             def checker(self):
-                return join(path, 'checker')
+                return driver.Utility(join(path, 'checker', 'config.ini'))
 
             def validator(self):
-                vpath = join(path, 'validator')
+                vpath = join(path, 'validator', 'config.ini')
                 if exists(vpath):
-                    return vpath
+                    return driver.Utility(vpath)
                 else:
                     return None
 

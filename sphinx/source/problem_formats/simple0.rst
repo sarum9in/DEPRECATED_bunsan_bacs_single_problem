@@ -5,7 +5,7 @@ Introduction
 ------------
 
 "simple0" format is the similar to bacs legacy problem format.
-It uses ini files to configure problem.
+It uses :doc:`../ini` files to configure problem.
 
 Specifications
 --------------

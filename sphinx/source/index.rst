@@ -18,6 +18,7 @@ Contents:
    utilities/index
    statement/index
 
+   ini
 
 Indices and tables
 ==================

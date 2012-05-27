@@ -22,7 +22,7 @@ Specifications
 Configuration file
 ^^^^^^^^^^^^^^^^^^
 
-Configuration file has *ini* format.
+Configuration file has :doc:`ini`.
 **[build]** section is used for `Buildable`_ options specifications.
 User may introduce arbitrary sections except **[build]** for additional
 configuration (not used by `Buildable`_).

@@ -54,8 +54,8 @@ Specifications
    a. **info** section has the following options
 
       i. name -- the name of the problem
-      #. authors -- the list of authors separated by "\\n", author name is trimmed
-      #. maintainers -- the list of maintainers separated by "\\n", maintainer name is trimmed
+      #. authors -- the list of authors separated by spaces, see `Username`_
+      #. maintainers -- the list of maintainers separated by spaces, see `Username`_
       #. source -- the source of the problem (contest name, championship...)
 
    #. **rlimits** section has the following options
@@ -81,6 +81,13 @@ Specifications
       i. ``data_id = text`` -- for text files
       #. ``data_id = binary`` -- for binary files
 
+
+Username
+~~~~~~~~
+
+Username is used by BACS.WEB.
+
+Username is non-empty string matching the following regular expression: ``^[a-zA-Z0-9_-]+$``.
 
 Fixed point decimal
 ~~~~~~~~~~~~~~~~~~~
@@ -145,16 +152,14 @@ Complicated sample
    ; It is comment
    name = Problem name
 
-   ; Problem is created by "author1 <author1@example.com>" and "author2 <author2@example.com>"
-   authors = author1 <author1@example.com>
-      author2 <author2@example.com>
+   ; Problem is created by "author1" and "author2"
+   authors = author1 author2
 
    ; Here you can specify user names/ids (related to BACS.WEB)
    ;
    ; Note that names will be trimmed, so here the following string list is specified:
    ; ["admin", "contest_admin"]
-   maintainers = admin
-      contest_admin
+   maintainers = admin contest_admin
 
    source = PTZ summer 2011
 
@@ -188,7 +193,7 @@ Short sample
 
    [info]
    name = Problem name
-   maintainer = admin
+   maintainers = admin
 
    [rlimits]
    memory = 256MiB

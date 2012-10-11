@@ -114,7 +114,7 @@ Binary multiples give :math:`2^{10k}` multiplier.
 
    no multiple = "" ;
    si multiple = "da" | "h" | "k" | "M" | "G" | "T" | "P" | "E" | "Z" | "Y" ;
-   si submultiple = "d" | "c"| "m" | "µ" | "mu" | "n" | "p" | "f" | "a" | "z" | "y" ;
+   si submultiple = "d" | "c"| "m" | ( "µ" | "u" ) | "n" | "p" | "f" | "a" | "z" | "y" ;
    binary multiple = "Ki" | "Mi" | "Gi" | "Ti" | "Pi" | "Ei" | "Zi" | "Yi" ;
 
 Memory value

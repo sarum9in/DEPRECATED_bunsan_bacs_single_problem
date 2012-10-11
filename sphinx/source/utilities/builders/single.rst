@@ -25,7 +25,7 @@ contains the following options:
 1. *source* specifies source file
 #. *std* specifies programming language standard, default is the newest language standard.
    For some languages compiler name may used.
-#. *libs* specifies library list "\\n" separated
+#. *libs* specifies library list space separated
 #. *call* specifies calling convention **TODO move up/describe/default value**
 
 

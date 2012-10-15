@@ -35,9 +35,9 @@ Problem in "simple0" is a folder with the following entries:
 Testing algorithm
 ^^^^^^^^^^^^^^^^^
 
-1. Solution testing is performed on all.
+1. Solution testing is performed on all tests.
 #. Test order is numeric if all test_ids match pattern ``'\d+'`` otherwise order is lexicographical.
-#. Testing algorithm is *BREAK_ON_FAIL*.
+#. Testing algorithm is *WHILE_NOT_FAIL*.
 #. Solution is executed on specified test.
 #. After solution execution checker is executed.
 
@@ -58,12 +58,12 @@ Specifications
       #. maintainers -- the list of maintainers separated by spaces, see `Username`_
       #. source -- the source of the problem (contest name, championship...)
 
-   #. **rlimits** section has the following options
+   #. **resource_limits** section has the following options
 
       i. *memory* -- `Fixed point decimal`_, see `Memory value`_
       #. *time* --  `Fixed point decimal`_, see `Time value`_
-      #. *cpu* --  `Fixed point decimal`_, see `Time value`_
       #. *output* -- `Fixed point decimal`_, see `Memory value`_
+      #. *real_time* --  `Fixed point decimal`_, see `Time value`_
 
    #. **files** section has following options: *stdin*, *stdout*, *stderr*.
 
@@ -163,10 +163,10 @@ Complicated sample
 
    source = PTZ summer 2011
 
-   [rlimits]
+   [resource_limits]
    memory = 256MiB
    ; 1 second
-   cpu = 1s
+   time = 1s
 
    [files]
    ; Note that stdin is not specified, so it is redirected from "in" file from test
@@ -195,9 +195,9 @@ Short sample
    name = Problem name
    maintainers = admin
 
-   [rlimits]
+   [resource_limits]
    memory = 256MiB
-   cpu = 1
+   time = 1
 
    [files]
    stdin = input.txt

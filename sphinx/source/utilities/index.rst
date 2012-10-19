@@ -16,6 +16,16 @@ we can treat copy operation as build.
 
 Configuration file is named *config.ini*.
 
+
+Calling conventions
+-------------------
+
+Implementation may use different wrapper to implement different calling conventions.
+For instance binary executable may be wrapped for functional call.
+
+**[utility]** section has **call** option that will be used to determine calling convention.
+
+
 Builders list
 -------------
 

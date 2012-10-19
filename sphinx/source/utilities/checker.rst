@@ -28,11 +28,3 @@ Example
    >>> check({'in': 'path/to/2.in', 'out': 'path/to/2.out'}, {'stdin': 'path/to/input.txt', 'stdout': 'path/to/output.txt'})
    ('WRONG_ANSWER', 'Even number is expected')
 
-
-Calling conventions
--------------------
-
-Implementation may use different wrapper to implement
-different calling conventions.
-For instance binary checker may be wrapped for functional call.
-

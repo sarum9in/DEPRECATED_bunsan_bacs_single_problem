@@ -24,10 +24,3 @@ Example
    >>> validate({'in': 'path/to/2.in', 'out': 'path/to/2.out', 'err': 'path/to/2.err'})
    (False, 'Test is integer')
 
-
-Calling conventions
--------------------
-
-Implementation may use different wrappers to implement different calling conventions.
-For instance problem author may provide executable that should be wrapped.
-

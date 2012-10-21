@@ -24,6 +24,7 @@ Problem in "simple0" is a folder with the following entries:
 
    a. Each test is set of files which names has "test_id.data_id" format
    #. Data set of test is set of data_ids
+   #. Data set must be equal to ``{'in', 'out'}``.
    #. Data sets are equal among different tests
    #. Each test file is considered to be either *text* or *binary*
 
@@ -77,6 +78,7 @@ Specifications
 
    #. **tests** section describes data set of the tests.
       You can specify file format of the data_id.
+      ``data_id`` is one of *in* or *out*.
 
       i. ``data_id = text`` -- for text files
       #. ``data_id = binary`` -- for binary files
@@ -182,9 +184,6 @@ Complicated sample
 
    ; This line describes files "1.out", "2.out" ...
    out = text
-
-   ; This line describes files "1.err", "2.err" ...
-   err = text
 
 
 Short sample

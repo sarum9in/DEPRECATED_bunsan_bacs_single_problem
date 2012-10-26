@@ -20,7 +20,7 @@ Example
 .. doctest::
 
    >>> validate({'in': 'path/to/1.in', 'out': 'path/to/1.out', 'err': 'path/to/1.err'})
-   (True, None)
+   {'status': 'OK'}
    >>> validate({'in': 'path/to/2.in', 'out': 'path/to/2.out', 'err': 'path/to/2.err'})
-   (False, 'Test is integer')
+   {'status': 'FAIL', 'message': 'Test is integer'}
 
